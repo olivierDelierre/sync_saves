@@ -6,7 +6,7 @@ A tool to synchronize saves from games not supporting Steam Cloud
 - sudo
 
 ## Prerequisites
-1. Ensure your are register in the sudoers list
+1. Ensure your are registered in the sudoers list
 2. Export the address of your SMB share where you want to sync the saves to **SYNC_SAVES_SERVER**, without the double backslash (`\\`) (e.g.: `export SYNC_SAVES_SERVER="192.168.1.80/Documents`").
 3. Create a .smbcredentials file in your home folder containing the credentials for your SMB share. It should follow this syntax:
    ```
