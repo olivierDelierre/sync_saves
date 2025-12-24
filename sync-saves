@@ -1,0 +1,23 @@
+#!/bin/sh
+local_steam="$HOME/.local/share/Steam/steamapps/"
+mnt_point="/mnt/saves"
+
+# Mounting save folder
+if [ ! -d "$mnt_point" ]; then
+	sudo mkdir $mnt_point
+fi
+
+sudo mount -t cifs "//$SYNC_SAVES_SERVER/Saves/" /mnt/saves -ocredentials=$HOME/.smbcredentials,uid=1000
+
+# Syncing saves
+# Dark Souls 3
+ds3_local_path="$local_steam/compatdata/374320/pfx/drive_c/users/steamuser/AppData/Roaming/DarkSoulsIII/"
+ds3_cloud_path="$mnt_point/DarkSoulsIII/"
+
+if [ -d "$ds3_local_path" ]; then
+	rsync -rtuv $ds3_local_path $ds3_cloud_path
+fi
+rsync -rtuv $ds3_cloud_path $ds3_local_path
+
+# Unmount
+sudo umount /mnt/saves
